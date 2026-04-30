@@ -86,49 +86,34 @@ function clasificacionFinanciera() {
 
 console.log(clasificacionFinanciera());
 
-function ahorroPorBanco() {
+
+function calcularAhorro(usuario) {
+    return usuario.salary - usuario.expenses;
+}
+
+function agruparPor(array, clave) {
     let resultado = {};
 
-    for (let i = 0; i < usuarios.length; i++) {
-        let usuario = usuarios[i];
-        let banco = usuario.bank;
-        let ahorro = usuario.salary - usuario.expenses;
+    for (let i = 0; i < array.length; i++) {
+        let item = array[i];
+        let valorClave = item[clave];
 
-        if (!resultado[banco]) {
-            resultado[banco] = {
-                bank: banco,
+        if (!resultado[valorClave]) {
+            resultado[valorClave] = {
+                [clave]: valorClave,
                 cantidadUsuarios: 0,
                 ahorroTotal: 0
             };
         }
 
-        resultado[banco].cantidadUsuarios = resultado[banco].cantidadUsuarios + 1;
-        resultado[banco].ahorroTotal = resultado[banco].ahorroTotal + ahorro;
+        resultado[valorClave].cantidadUsuarios = resultado[valorClave].cantidadUsuarios + 1;
+        resultado[valorClave].ahorroTotal = resultado[valorClave].ahorroTotal + calcularAhorro(item);
     }
 
     return resultado;
 }
 
-console.log(ahorroPorBanco());
-
-function ahorroPorPais() {
-    let resultado = {};
-
-    for (let i = 0; i < usuarios.length; i++) {
-        let usuario = usuarios[i];
-        let pais = usuario.country;
-        let ahorro = usuario.salary - usuario.expenses;
-        if (!resultado[pais]) {
-            resultado[pais] = {
-                country: pais,
-                cantidadUsuarios: 0,
-                ahorroTotal: 0
-            };
-        }
-        resultado[pais].cantidadUsuarios = resultado[pais].cantidadUsuarios + 1;
-        resultado[pais].ahorroTotal = resultado[pais].ahorroTotal + ahorro;
-    }   
-    return resultado;
-}
-
-console.log(ahorroPorPais());
+//ACTIVIDAD 3
+console.log("Ahorro por banco:", agruparPor(usuarios, "bank"));
+//ACTIVIDAD 4
+console.log("Ahorro por país:", agruparPor(usuarios, "country"));
